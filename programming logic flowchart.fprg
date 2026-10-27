@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="2.11">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="USER"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2026-10-09 02:26:48 PM"/>
+        <attribute name="created" value="VVNFUjtERVNLVE9QLTVFNkk1UDg7MjAyNi0xMC0wNzswMzoxNDoyNSBQTTsyNjE3"/>
+        <attribute name="edited" value="VVNFUjtERVNLVE9QLTVFNkk1UDg7MjAyNi0xMC0wOTswMjoyNjo0OCBQTTs1OzI3Mzg="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <output expression="&quot;===SIERRA LEONE CROP &amp; IRRIGATION ADVISOR===&quot;" newline="True"/>
+            <declare name="farmerName" type="String" array="False" size=""/>
+            <declare name="soilPH" type="Real" array="False" size=""/>
+            <declare name="rainfall" type="Real" array="False" size=""/>
+            <declare name="nitrogen" type="Real" array="False" size=""/>
+            <declare name="recommendedCrop" type="String" array="False" size=""/>
+            <declare name="dailyWaterNeed" type="Real" array="False" size=""/>
+            <declare name="day" type="Integer" array="False" size=""/>
+            <declare name="MINPH" type="Real" array="False" size=""/>
+            <assign variable="MINPH" expression="3.0"/>
+            <declare name="MAXPH" type="Real" array="False" size=""/>
+            <assign variable="MAXPH" expression="10.0"/>
+            <declare name="BASEWATER" type="Real" array="False" size=""/>
+            <assign variable="BASEWATER" expression="35.0"/>
+            <output expression="&quot;Enter Farmer Name&quot;" newline="True"/>
+            <input variable="farmerName"/>
+            <output expression="&quot;Enter Soil PH Value (3.0 - 10.0):&quot;" newline="True"/>
+            <input variable="soilPH"/>
+            <if expression="soilPH &lt; MINPH or soilPH &gt; MAXPH">
+                <then>
+                    <output expression="&quot;Invalid PH! Please enter a value between 3.0 and 10.0:&quot;" newline="True"/>
+                    <input variable="soilPH"/>
+                </then>
+                <else/>
+            </if>
+            <output expression="&quot;Enter Weekly Rainfall (mm):&quot;" newline="True"/>
+            <input variable="rainfall"/>
+            <output expression="&quot;Enter Soil Nitrogen (mg/kg):&quot;" newline="True"/>
+            <input variable="nitrogen"/>
+            <if expression="soilPH &gt;= 5.0 and soilPH &lt;= 6.5">
+                <then>
+                    <if expression="nitrogen &gt;= 50.0">
+                        <then>
+                            <assign variable="recommendedCrop" expression="&quot;Rice (Sewa River Basin Variety)&quot;"/>
+                        </then>
+                        <else>
+                            <assign variable="recommendedCrop" expression="&quot;Groundnut (Nitrogen Fixing)&quot;"/>
+                        </else>
+                    </if>
+                </then>
+                <else>
+                    <if expression="soilPH &gt; 6.5 and soilPH &lt;= 7.5">
+                        <then>
+                            <if expression="nitrogen &gt;= 40.0">
+                                <then>
+                                    <assign variable="recommendedCrop" expression="&quot;Maize (High Yeild)&quot;"/>
+                                </then>
+                                <else>
+                                    <assign variable="recommendedCrop" expression="&quot;Cassava (Drought Tolerant)&quot;"/>
+                                </else>
+                            </if>
+                        </then>
+                        <else>
+                            <assign variable="recommendedCrop" expression="&quot;Soil Treatment Required&quot;"/>
+                        </else>
+                    </if>
+                </else>
+            </if>
+            <if expression="rainfall &gt;= BASEWATER">
+                <then>
+                    <assign variable="dailyWaterNeed" expression="0.0"/>
+                </then>
+                <else>
+                    <assign variable="dailyWaterNeed" expression="BASEWATER - rainfall"/>
+                </else>
+            </if>
+            <output expression="&quot;=== SIERRA LEONE CROP &amp; IRRIGATION ADVISOR ===&quot;" newline="True"/>
+            <output expression="&quot;__________________________________________________&quot;" newline="True"/>
+            <output expression="&quot;ADVISORY REPORT FOR: &quot; &amp; farmerName" newline="True"/>
+            <output expression="&quot;Recommended Crop: &quot; &amp; recommendedCrop" newline="True"/>
+            <output expression="&quot;Daily Deficit Water Needed: &quot; &amp; dailyWaterNeed &amp; &quot; Liters/m^2&quot;" newline="True"/>
+            <output expression="&quot;__________________________________________________&quot;" newline="True"/>
+            <if expression="dailyWaterNeed &gt; 0.0">
+                <then>
+                    <for variable="day" start="1" end="7" direction="inc" step="1">
+                        <output expression="&quot;Day &quot; &amp; day &amp; &quot;: Apply &quot; &amp; dailyWaterNeed &amp; &quot; Liters of water per m^2&quot;" newline="True"/>
+                    </for>
+                </then>
+                <else>
+                    <output expression="&quot;Sufficient rainfall expected. No artificial irrigation needed.&quot;" newline="True"/>
+                </else>
+            </if>
+            <output expression="&quot;=== END OF REPORT ===&quot;" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>
