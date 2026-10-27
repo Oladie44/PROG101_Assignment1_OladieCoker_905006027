@@ -1,0 +1,223 @@
+// ============================================================================
+
+// PROGRAM TITLE: Sierra Leone Agricultural Crop & Irrigation Advisor (SL-ACIA)
+
+// COURSE: PROG101 - Principles of Programming Logic and Design
+
+// INSTITUTION: Limkokwing University of Creative Technology, Sierra Leone
+
+// COMPATIBILITY: Flowgorithm / Standard Algorithmic Pseudocode
+
+// ============================================================================
+
+
+
+Module Main
+
+    // ------------------------------------------------------------------------
+
+    // Variable Declarations
+
+    // ------------------------------------------------------------------------
+
+    Declare String farmerName
+
+    Declare Real soilPH
+
+    Declare Real rainfall
+
+    Declare Real nitrogen
+
+    Declare String recommendedCrop
+
+    Declare Real dailyWaterNeed
+
+    Declare Integer day
+
+    
+
+    // ------------------------------------------------------------------------
+
+    // Constant Declarations
+
+    // ------------------------------------------------------------------------
+
+    Declare Real MIN_PH
+
+    Assign MIN_PH = 3.0
+
+    Declare Real MAX_PH
+
+    Assign MAX_PH = 10.0
+
+    Declare Real BASE_WATER
+
+    Assign BASE_WATER = 35.0
+
+
+
+    // ------------------------------------------------------------------------
+
+    // System Title Header
+
+    // ------------------------------------------------------------------------
+
+    Output "=================================================="
+
+    Output " SIERRA LEONE CROP & IRRIGATION ADVISOR (SL-ACIA) "
+
+    Output "=================================================="
+
+    Output "Enter Farmer Name:"
+
+    Input farmerName
+
+
+
+    // ------------------------------------------------------------------------
+
+    // Input & Validation Loop (Repetition Structure)
+
+    // ------------------------------------------------------------------------
+
+    Output "Enter Soil pH Value (3.0 - 10.0):"
+
+    Input soilPH
+
+    While soilPH < MIN_PH or soilPH > MAX_PH
+
+        Output "ERROR: Invalid Soil pH entered! Must be between 3.0 and 10.0."
+
+        Output "Please enter a valid Soil pH Value:"
+
+        Input soilPH
+
+    End While
+
+
+
+    // ------------------------------------------------------------------------
+
+    // Environmental Data Acquisition
+
+    // ------------------------------------------------------------------------
+
+    Output "Enter Weekly Expected Rainfall (in mm):"
+
+    Input rainfall
+
+    Output "Enter Soil Nitrogen Concentration (mg/kg):"
+
+    Input nitrogen
+
+
+
+    // ------------------------------------------------------------------------
+
+    // Decision Structure: Crop Selection Logic
+
+    // ------------------------------------------------------------------------
+
+    If soilPH >= 5.0 and soilPH <= 6.5 then
+
+        If nitrogen >= 50.0 then
+
+            Assign recommendedCrop = "Rice (Sewa River Basin Variety)"
+
+        Else
+
+            Assign recommendedCrop = "Groundnut (Nitrogen Fixing)"
+
+        End If
+
+    Else
+
+        If soilPH > 6.5 and soilPH <= 7.5 then
+
+            If nitrogen >= 40.0 then
+
+                Assign recommendedCrop = "Maize (High Yield)"
+
+            Else
+
+                Assign recommendedCrop = "Cassava (Drought Tolerant)"
+
+            End If
+
+        Else
+
+            Assign recommendedCrop = "Unsuitable Soil pH - Soil Treatment Required"
+
+        End If
+
+    End If
+
+
+
+    // ------------------------------------------------------------------------
+
+    // Decision Structure: Irrigation Water Deficit Calculation
+
+    // ------------------------------------------------------------------------
+
+    If rainfall >= BASE_WATER then
+
+        Assign dailyWaterNeed = 0.0
+
+    Else
+
+        Assign dailyWaterNeed = BASE_WATER - rainfall
+
+    End If
+
+
+
+    // ------------------------------------------------------------------------
+
+    // Output Module: Summary Report Display
+
+    // ------------------------------------------------------------------------
+
+    Output "--------------------------------------------------"
+
+    Output "ADVISORY REPORT FOR: " & farmerName
+
+    Output "Recommended Crop Strategy: " & recommendedCrop
+
+    Output "Daily Deficit Water Needed: " & dailyWaterNeed & " Liters/m²"
+
+    Output "--------------------------------------------------"
+
+
+
+    // ------------------------------------------------------------------------
+
+    // Repetition Structure: 7-Day Irrigation Schedule Generation
+
+    // ------------------------------------------------------------------------
+
+    If dailyWaterNeed > 0.0 then
+
+        Output "--- 7-DAY IRRIGATION SCHEDULE ---"
+
+        For day = 1 To 7
+
+            Output "Day " & day & ": Apply " & dailyWaterNeed & " Liters of water per m²"
+
+        End For
+
+    Else
+
+        Output "Sufficient rainfall expected. No artificial irrigation needed for the next 7 days."
+
+    End If
+
+    
+
+    Output "=================================================="
+
+    Output "              END OF ADVISORY REPORT              "
+
+    Output "=================================================="
+
+End Module
